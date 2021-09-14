@@ -6,7 +6,7 @@
 resource "aws_iam_policy" "terraform" {
   count = var.terraform_iam_policy_create ? 1 : 0
 
-  name_prefix = var.terraform_iam_policy_name_prefix
+  name = var.terraform_iam_policy_name
 
   policy = <<POLICY
 {

@@ -16,7 +16,7 @@ variable "terraform_iam_policy_create" {
   default     = true
 }
 
-variable "terraform_iam_policy_name_prefix" {
+variable "terraform_iam_policy_name" {
   description = "Creates a unique name beginning with the specified prefix."
   default     = "terraform"
 }
@@ -42,12 +42,12 @@ variable "kms_key_enable_key_rotation" {
 #---------------------------------------------------------------------------------------------------
 # S3 Buckets
 #---------------------------------------------------------------------------------------------------
-variable "state_bucket_prefix" {
+variable "state_bucket" {
   description = "Creates a unique state bucket name beginning with the specified prefix."
   default     = "tf-remote-state"
 }
 
-variable "replica_bucket_prefix" {
+variable "replica_bucket" {
   description = "Creates a unique replica bucket name beginning with the specified prefix."
   default     = "tf-remote-state-replica"
 }
@@ -57,12 +57,12 @@ variable "iam_role_arn" {
   default     = null
 }
 
-variable "iam_role_name_prefix" {
+variable "iam_role_name" {
   description = "Creates a unique name beginning with the specified prefix."
   default     = "tf-remote-state-replication-role"
 }
 
-variable "iam_policy_name_prefix" {
+variable "iam_policy_name" {
   description = "Creates a unique name beginning with the specified prefix."
   default     = "tf-remote-state-replication-policy"
 }
