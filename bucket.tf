@@ -31,7 +31,7 @@ resource "aws_kms_key" "replica" {
 resource "aws_iam_role" "replication" {
   count = local.replication_role_count
 
-  name = var.iam_role_name
+  name = "var.iam_role_name-${terraform.workspace}"
 
   assume_role_policy = <<POLICY
 {
@@ -53,7 +53,7 @@ POLICY
 
 resource "aws_iam_policy" "replication" {
   count       = local.replication_role_count
-  name = var.iam_policy_name
+  name = "var.iam_policy_name-${terraform.workspace}"
 
   policy = <<POLICY
 {
@@ -126,7 +126,7 @@ POLICY
 resource "aws_iam_policy_attachment" "replication" {
   count = local.replication_role_count
 
-  name       = var.iam_policy_attachment_name
+  name       = "var.iam_policy_attachment_name-${terraform.workspace}"
   roles      = [aws_iam_role.replication[0].name]
   policy_arn = aws_iam_policy.replication[0].arn
 }
@@ -188,7 +188,7 @@ data "aws_region" "replica" {
 resource "aws_s3_bucket" "replica" {
   provider = aws.replica
 
-  bucket = "${var.replica_bucket}-${terraform.workspace}"
+  bucket = "${terraform.workspace}-${var.replica_bucket}"
   force_destroy = var.s3_bucket_force_destroy
 
   versioning {
@@ -238,7 +238,7 @@ resource "aws_s3_bucket_public_access_block" "replica" {
 }
 
 resource "aws_s3_bucket" "state" {
-  bucket = "${var.state_bucket}-${terraform.workspace}"
+  bucket = "${terraform.workspace}-${var.state_bucket}"
   acl           = "private"
   force_destroy = var.s3_bucket_force_destroy
 
